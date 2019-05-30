@@ -1,11 +1,22 @@
 let problem = location.href.split('/').pop();
-let elems = document.querySelectorAll('#task-statement span.lang-ja > div.part pre');
+
+let previousCMs = document.querySelectorAll('.CodeMirror.cm-s-default');
+previousCMs.forEach(function(cm) {
+  cm.parentNode.removeChild(cm);
+});
+var editor = CodeMirror.fromTextArea(document.querySelector('textarea.editor'), {
+  viewportMargin: Infinity,
+  lineNumbers: true
+});
+
+
+let sampleElems = document.querySelectorAll('#task-statement span.lang-ja > div.part pre');
 var samples = [];
-for (var i = 0; i < elems.length; i += 2) {
+for (var i = 0; i < sampleElems.length; i += 2) {
   samples.push({
-    input: elems[i].textContent,
-    output: elems[i+1].textContent,
-    id: elems[i+1].id,
+    input: sampleElems[i].textContent,
+    output: sampleElems[i+1].textContent,
+    id: sampleElems[i+1].id,
   });
 }
 
@@ -16,6 +27,7 @@ socket.addEventListener('open', function (event) {
     samples: samples,
   }));
 });
+
 socket.addEventListener('message', function (event) {
   var data = JSON.parse(event.data);
   let previousElems = document.querySelectorAll('.acs-appended');
@@ -37,11 +49,6 @@ socket.addEventListener('message', function (event) {
     }
   });
 
-  let statement = document.querySelector('#task-statement');
-  var source = document.createElement('pre');
-  source.className = 'acs-appended'
-  var sourceText = document.createTextNode(data.source);
-  source.appendChild(sourceText);
-  statement.parentNode.insertBefore(source, statement.nextSibling);
+  editor.setValue(data.source);
   console.log(data);
 });
