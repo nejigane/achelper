@@ -28,7 +28,7 @@ template = '''
 #heapq.heappop(h)
 #
 #from collections import defaultdict
-
+#INF = float("inf")
 nl = lambda: list(map(int, input().split()))
 sl = lambda: input().split()
 n = lambda: int(input())
@@ -58,7 +58,7 @@ async def handle(websocket, path):
                 sample['stderr'] = stderr.decode('utf-8')
             with open(file_name) as f:
                 lines = f.read().split('\n')
-                lines = [l for l in lines if l.find('#') < 0]
+                lines = [l for l in lines if l.find('#') != 0]
                 data['source'] = '\n'.join(lines)
             await websocket.send(json.dumps(data))
             prev_mtime = mtime
