@@ -18,6 +18,8 @@ template = '''
 #
 #import itertools
 #for p in itertools.product([False, True], repeat=10):
+#for p in itertools.permutations('ABCD', 2):
+#for p in itertools.combinations('ABCD', 2):
 #
 #import bisect
 #bisect.bisect_left(A, 3)
