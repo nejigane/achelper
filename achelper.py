@@ -8,6 +8,11 @@ import time
 import websockets
 
 template = '''
+nl = lambda: list(map(int, input().split()))
+sl = lambda: input().split()
+n = lambda: int(input())
+s = lambda: input()
+
 #import sys
 #sys.setrecursionlimit(1000)
 #
@@ -31,10 +36,12 @@ template = '''
 #
 #from collections import defaultdict
 #INF = float("inf")
-nl = lambda: list(map(int, input().split()))
-sl = lambda: input().split()
-n = lambda: int(input())
-s = lambda: input()
+#
+#import math
+#def ncr(n, r):
+#    if r > n:
+#        return 0
+#    return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
 '''
 
 async def handle(websocket, path):
