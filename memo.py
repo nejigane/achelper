@@ -7,6 +7,15 @@ def prime_factors(n):
             n //= i
             yield i
 
+def divisors(n):
+    res = []
+    for i in range(1, int(n**0.5)+1):
+        if n % i == 0:
+            res.append(i)
+            if i != n // i:
+                res.append(n//i)
+    return res
+
 import heapq
 class PrioritySet(object):
     def __init__(self):
@@ -150,3 +159,6 @@ def max_flow(edges, num_of_vertices, start, goal):
                 break
             flow += f
     return flow
+
+
+print(divisors(100))
