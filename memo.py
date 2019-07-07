@@ -34,6 +34,30 @@ class PrioritySet(object):
 class UnionFind(object):
     def __init__(self, n):
         self.parents = [i for i in range(n)]
+        self.sizes = [1] * n
+    def find(self, x):
+        if self.parents[x] == x:
+            return x
+        else:
+            self.parents[x] = self.find(self.parents[x])
+            return self.parents[x]
+    def union(self, x, y):
+        x = self.find(x)
+        y = self.find(y)
+        if x == y:
+            return
+
+        if self.sizes[x] < self.sizes[y]:
+            self.parents[x] = y
+            self.sizes[y] += self.sizes[x]
+        else:
+            self.parents[y] = x
+            self.sizes[x] += self.sizes[y]
+
+# rank version
+class UnionFind(object):
+    def __init__(self, n):
+        self.parents = [i for i in range(n)]
         self.rank = [0] * n
     def find(self, x):
         if self.parents[x] == x:
